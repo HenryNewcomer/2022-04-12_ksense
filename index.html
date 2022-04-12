@@ -4,17 +4,38 @@
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <title>Ksense Application - Henry Newcomer</title>
+        <script src="https://code.jquery.com/jquery-3.6.0.slim.min.js" integrity="sha256-u7e5khyithlIdTpu22PHhENmPcRdFiHRjhAuHcs05RI=" crossorigin="anonymous"></script>
         <script>
-            <!-- Note: In real life, this JS would likely be moved to an external minified file. -->
-            fetch('https://jsonplaceholder.typicode.com/todos/1')
-            .then(response => response.json())
-            .then(json => console.log(json))
+            /****************************************************
+            * Note: In real life, this JS would likely be moved
+            * to an external minified file.
+            ****************************************************/
+
+            function populateNames(users) {
+                // alert("RESPONSE length: " + users.length);
+                console.log(users)
+
+                for (let i = 0; i < users.length; i++) {
+                    alert("loop: "+i+" - "+users[i]['name']);
+                }
+
+            }
+
+            function grab() {
+                fetch('https://jsonplaceholder.typicode.com/users/')
+                    .then(response => response.json())
+                    .then(json => populateNames(json))
+                    .catch(error => { alert("URL response failed."); });
+            }
+
+            $(document).ready(function() { grab(); });
         </script>
     </head>
     <body>
         <section>
             <h1>Henry Newcomer's Application</h1>
-            <div id="main-content"></div>
+            <div class="container">
+            </div>
         </section>
     </body>
 </html>
