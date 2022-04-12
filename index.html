@@ -4,12 +4,89 @@
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <title>Ksense Application - Henry Newcomer</title>
+
+        <style>
+            /****************************************************
+             * Note: In the real world, this would likely be moved
+             * to an external, minified file.
+             ****************************************************/
+
+            @import url('https://fonts.googleapis.com/css?family=Montserrat|Tangerine|Allura|Quicksand');
+
+            body {
+                background-color: #354f6a;
+                color: #e3ebfd;
+                font-family: "montserrat", arial, verdana, sans-serif;
+                font-size: 2rem;
+                height: 100%;
+                letter-spacing: 1px;
+                margin: 0px;
+                width: 100%;
+            }
+
+            @media only screen and (max-width: 600px) {
+                /* TODO Additional responsive design tweaks... */
+                body {
+                    padding: 8px;
+                    width: vh;
+                }
+            }
+
+            a, a:link, a:hover, a:active, a:visited {
+                color: #bfb095;
+                font-weight: bold;
+                text-decoration: none;
+            }
+
+            a:hover { color: #c79b4b; }
+
+            h1 {
+                font-family: "tangerine", arial, verdana, sans-serif;
+                font-size: 4rem;
+                text-align: center;
+            }
+
+            div#container {
+                border-radius: 1rem;
+                box-shadow: 0 0 12px 4px rgba(28, 43, 60, 0.6);
+                font-size: 1rem;
+                text-align: center;
+                margin: 4rem auto;
+                overflow:hidden;
+                width: 80%;
+            }
+
+            div#container ul {
+                list-style: none;
+                padding-left: 0;
+            }
+
+            div#container ul#posts:before { content: "Posts:"; }
+
+            div#container ul#posts li {
+                color: #8aa5c2;
+                text-align: left;
+            }
+
+            div#container li:nth-child(2n) {
+                background-color: #2c445d;
+            }
+
+            div#container li {
+                padding: 2rem;
+            }
+
+            .return {
+                font-size: 1.2rem;
+                margin: 3rem 0;
+            }
+        </style>
+
         <script src="https://code.jquery.com/jquery-3.6.0.slim.min.js" integrity="sha256-u7e5khyithlIdTpu22PHhENmPcRdFiHRjhAuHcs05RI=" crossorigin="anonymous"></script>
         <script>
             /****************************************************
-            * Note: In the real world, this JS would likely be moved
-            * to an external minified file.
-            ****************************************************/
+             * Note: This would also be minified & external.
+             ****************************************************/
 
             function populateUsers(users) {
                 let output = "<ul id=\"users\">";
@@ -22,9 +99,9 @@
             }
 
             function populateUserPosts(posts) {
-                let output = "<ul>";
+                let output = "<ul id=\"posts\">";
                 for (let i = 0; i < posts.length; i++) {
-                    output += "<li>" + posts[i]['title'] + "</li>";
+                    output += "<li>#" + (i+1) + ") " + posts[i]['title'] + "</li>";
                 }
                 output += "<ul> \
                     <div class='return'><a href='javascript:getData(\"users\");'>Return to users.</a></div>";
@@ -53,7 +130,7 @@
         </script>
     </head>
     <body>
-        <h1>Henry Newcomer's Application</h1>
+        <h1>Single Page App</h1>
         <div id="container">
         </div>
     </body>
