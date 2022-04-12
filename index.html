@@ -7,35 +7,54 @@
         <script src="https://code.jquery.com/jquery-3.6.0.slim.min.js" integrity="sha256-u7e5khyithlIdTpu22PHhENmPcRdFiHRjhAuHcs05RI=" crossorigin="anonymous"></script>
         <script>
             /****************************************************
-            * Note: In real life, this JS would likely be moved
+            * Note: In the real world, this JS would likely be moved
             * to an external minified file.
             ****************************************************/
 
-            function populateNames(users) {
-                // alert("RESPONSE length: " + users.length);
-                console.log(users)
-
+            function populateUsers(users) {
+                let output = "<ul id=\"users\">";
                 for (let i = 0; i < users.length; i++) {
-                    alert("loop: "+i+" - "+users[i]['name']);
+                    // alert("loop: "+i+" - "+users[i]['name']);
+                    output += "<li><a href=\"javascript:getData('posts', '"+users[i]['id']+"');\">"+users[i]['name']+"</li>";
                 }
-
+                output += "</ul>";
+                document.getElementById("container").innerHTML = output;
             }
 
-            function grab() {
-                fetch('https://jsonplaceholder.typicode.com/users/')
-                    .then(response => response.json())
-                    .then(json => populateNames(json))
-                    .catch(error => { alert("URL response failed."); });
+            function populateUserPosts(posts) {
+                let output = "<ul>";
+                for (let i = 0; i < posts.length; i++) {
+                    output += "<li>" + posts[i]['title'] + "</li>";
+                }
+                output += "<ul> \
+                    <div class='return'><a href='javascript:getData(\"users\");'>Return to users.</a></div>";
+                document.getElementById("container").innerHTML = output;
             }
 
-            $(document).ready(function() { grab(); });
+            function getData(type, post_url_path = "") {
+                // TODO Refactor conditionals to minimize repeating code.
+                if (type == "users") {
+                    fetch("https://jsonplaceholder.typicode.com/users")
+                        .then(response => response.json())
+                        .then(json => populateUsers(json))
+                        .catch(error => { alert("URL response failed."); });
+                } else if (type == "posts") {
+                    fetch("https://jsonplaceholder.typicode.com/posts?userId="+post_url_path)
+                        .then(response => response.json())
+                        .then(json => populateUserPosts(json))
+                        .catch(error => { alert("URL response failed."); });
+                } else {
+                    document.getElementById("container").innerText = "Error determining type for getData().";
+                    // ...
+                }
+            }
+
+            $(document).ready(function() { getData("users"); });
         </script>
     </head>
     <body>
-        <section>
-            <h1>Henry Newcomer's Application</h1>
-            <div class="container">
-            </div>
-        </section>
+        <h1>Henry Newcomer's Application</h1>
+        <div id="container">
+        </div>
     </body>
 </html>
