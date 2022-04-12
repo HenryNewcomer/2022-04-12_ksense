@@ -91,7 +91,6 @@
             function populateUsers(users) {
                 let output = "<ul id=\"users\">";
                 for (let i = 0; i < users.length; i++) {
-                    // alert("loop: "+i+" - "+users[i]['name']);
                     output += "<li><a href=\"javascript:getData('posts', '"+users[i]['id']+"');\">"+users[i]['name']+"</li>";
                 }
                 output += "</ul>";
